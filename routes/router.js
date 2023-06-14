@@ -9,6 +9,7 @@ const getReports = require("../controllers/report/getAll");
 const getReport = require("../controllers/report/getOne");
 
 const postSign = require("../controllers/auth/postSign");
+const postLogin = require("../controllers/auth/postLogin");
 
 const router = Router();
 
@@ -16,12 +17,13 @@ const router = Router();
 router.get("/user", getUsers);
 router.patch("/user/:id", editUser);
 
-// SIGNUP
-router.post("/sign-up", postSign);
-
 // REPORT
 router.post("/report", postReport);
 router.get("/report", getReports);
 router.get("/report/:id", getReport);
+
+// SIGN
+router.post("/sign-up", postSign);
+router.post("/login", postLogin);
 
 module.exports = router;

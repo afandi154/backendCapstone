@@ -1,4 +1,5 @@
 const userSchema = require("../../models/userSchema");
+const jwt = require("jsonwebtoken");
 
 const handleErrors = (err) => {
   console.log(`${err.message} (${err.code})`);
@@ -20,11 +21,22 @@ const handleErrors = (err) => {
   return errors;
 };
 
+const expiredTime = 3 * 24 * 60 * 60; // 3 Days
+const createToken = (id) => {
+  return jwt.sign({ id }, "users secret", {
+    expiresIn: expiredTime,
+  });
+};
+
 module.exports = async (req, res) => {
   try {
-    await userSchema
-      .create(req.body)
-      .then((data) => res.json({ code: 200, status: "success", data }));
+    const user = await userSchema.create(req.body);
+
+    const token = createToken(user._id);
+    res.cookie("jwt", token, { httpOnly: true, maxAge: expiredTime * 1000 });
+    res
+      .status(200)
+      .json({ code: 200, status: "success", userId: user._id, jwt: token });
   } catch (err) {
     const errors = handleErrors(err);
     res.status(400).json({ code: 400, message: "failed", errors });
