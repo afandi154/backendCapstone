@@ -29,11 +29,15 @@ module.exports = async (req, res) => {
 
     const token = createToken(user._id);
     res.cookie("jwt", token, { httpOnly: true, maxAge: expiredTime * 1000 });
-    res
-      .status(200)
-      .json({ code: 200, status: "success", userId: user._id, jwt: token });
+    res.status(200).json({
+      code: 200,
+      status: "success",
+      userId: user._id,
+      role: user.role,
+      jwt: token,
+    });
   } catch (err) {
     const errors = handleErrors(err);
-    res.status(400).json({ code: 400, message: "failed", errors });
+    res.status(400).json({ code: 400, status: "failed", errors });
   }
 };

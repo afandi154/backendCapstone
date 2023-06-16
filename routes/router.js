@@ -27,6 +27,6 @@ router.get("/report/:id", requireAuth, getReport);
 // SIGN
 router.post("/sign-up", postSign);
 router.post("/login", postLogin);
-router.get("/logout", logout);
+router.get("/logout", requireAuth, logout);
 
 module.exports = router;

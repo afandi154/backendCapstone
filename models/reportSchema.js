@@ -4,19 +4,23 @@ const schema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Nama Tidak Boleh Kosong"],
     },
     caseType: {
       type: String,
-      required: true,
+      required: [true, "Tipe Kasus TIdak Boleh Kosong"],
     },
     location: {
       type: String,
-      required: true,
+      required: [true, "Lokasi Kejadian TIdak Boleh Kosong"],
+    },
+    caseDate: {
+      type: Date,
+      required: [true, "Tanggal Kejadian TIdak Boleh Kosong"],
     },
     desc: {
       type: String,
-      required: true,
+      required: [true, "Rincian Kejadian TIdak Boleh Kosong"],
     },
     status: {
       type: Boolean,

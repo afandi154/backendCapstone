@@ -6,7 +6,7 @@ const schema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Harap Masukan Nama Anda"],
       minlength: [3, "Username Harus Lebih Dari 2 Karakter"],
     },
     email: {
@@ -25,11 +25,11 @@ const schema = mongoose.Schema(
       type: String,
       default: "user",
     },
-    reportIds: {
-      // type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Report" }],
-      type: Array,
-      default: [],
-    },
+    // reportIds: {
+    //   type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Report" }],
+    //   type: Array,
+    //   default: [],
+    // },
   },
   { timestamps: true }
 );
